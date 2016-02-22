@@ -1,0 +1,96 @@
+"Notes"	"State"	"State Code"	Count	Percent of Total
+	"Alabama"	"01"	5620	1.69%
+	"Alaska"	"02"	1360	0.41%
+	"Arizona"	"04"	5553	1.67%
+	"Arkansas"	"05"	3075	0.93%
+	"California"	"06"	68997	20.78%
+	"Colorado"	"08"	2034	0.61%
+	"Connecticut"	"09"	2287	0.69%
+	"Delaware"	"10"	684	0.21%
+	"District of Columbia"	"11"	1669	0.50%
+	"Florida"	"12"	23615	7.11%
+	"Georgia"	"13"	11778	3.55%
+	"Hawaii"	"15"	3146	0.95%
+	"Idaho"	"16"	294	0.09%
+	"Illinois"	"17"	14341	4.32%
+	"Indiana"	"18"	3047	0.92%
+	"Iowa"	"19"	1067	0.32%
+	"Kansas"	"20"	1395	0.42%
+	"Kentucky"	"21"	3416	1.03%
+	"Louisiana"	"22"	5946	1.79%
+	"Maine"	"23"	399	0.12%
+	"Maryland"	"24"	6003	1.81%
+	"Massachusetts"	"25"	5561	1.67%
+	"Michigan"	"26"	6023	1.81%
+	"Minnesota"	"27"	3769	1.13%
+	"Mississippi"	"28"	3418	1.03%
+	"Missouri"	"29"	3295	0.99%
+	"Montana"	"30"	290	0.09%
+	"Nebraska"	"31"	564	0.17%
+	"Nevada"	"32"	2199	0.66%
+	"New Hampshire"	"33"	349	0.11%
+	"New Jersey"	"34"	11605	3.49%
+	"New Mexico"	"35"	1210	0.36%
+	"New York"	"36"	36138	10.88%
+	"North Carolina"	"37"	8313	2.50%
+	"North Dakota"	"38"	171	0.05%
+	"Ohio"	"39"	5191	1.56%
+	"Oklahoma"	"40"	3372	1.02%
+	"Oregon"	"41"	2404	0.72%
+	"Pennsylvania"	"42"	8284	2.49%
+	"Rhode Island"	"44"	898	0.27%
+	"South Carolina"	"45"	5271	1.59%
+	"South Dakota"	"46"	362	0.11%
+	"Tennessee"	"47"	6847	2.06%
+	"Texas"	"48"	35364	10.65%
+	"Utah"	"49"	817	0.25%
+	"Vermont"	"50"	126	0.04%
+	"Virginia"	"51"	6590	1.98%
+	"Washington"	"53"	5322	1.60%
+	"West Virginia"	"54"	731	0.22%
+	"Wisconsin"	"55"	1803	0.54%
+	"Wyoming"	"56"	86	0.03%
+"Total"			332099	100.00%
+"---"
+"Dataset: OTIS 2013 TB Data"
+"Query Parameters:"
+"Title:"
+"Age Groups, Broad: All"
+"Alcohol Use: All"
+"Bridged Race / Ethnicity: All"
+"Completion of Therapy Within One Year: All"
+"Correctional Facility: All"
+"Directly Observed Therapy: All"
+"Disease Site: All"
+"Drug Use, Injecting: All"
+"Drug Use, Non-injecting: All"
+"HIV Status: All"
+"Homeless in Past Year: All"
+"Long-term Care Facility: All"
+"Multidrug-Resistant: All"
+"Previous TB: All"
+"Residence at Diagnosis: All"
+"Revised Occupation: All"
+"Sex: All"
+"State: The United States"
+"Tested for Isoniazid & Rifampin Susceptibility: All"
+"Tested for Isoniazid Susceptibility: All"
+"U.S. or Foreign Born: All"
+"Verification Criteria: All"
+"Vital Status: All"
+"Year: All"
+"Years in U.S.: All"
+"Group By: State"
+"Show Totals: True"
+"Show Zero Values: False"
+"Show Suppressed: False"
+"Calculate Rates Per: 100,000"
+"---"
+"Help: See http://wonder.cdc.gov/wonder/help/tb.html for more information."
+"---"
+"Query Date: Jan 4, 2016 12:37:19 PM"
+"---"
+"Suggested Citation: Online Tuberculosis Information System (OTIS), National Tuberculosis Surveillance System, United States,"
+"1993-2013. U.S. Department of Health and Human Services (US DHHS), Centers for Disease Control and Prevention (CDC), Division of"
+"TB Elimination, CDC WONDER Online Database, April 2015. Accessed at http://wonder.cdc.gov/tb-v2013.html on Jan 4, 2016 12:37:19"
+"PM"
