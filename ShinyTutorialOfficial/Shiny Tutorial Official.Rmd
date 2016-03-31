@@ -1,0 +1,655 @@
+---
+title: "Shiny Tutorial Official"
+output: html_document
+---
+
+See http://shiny.rstudio.com/tutorial/lesson1/
+Layout Guide: http://shiny.rstudio.com/articles/layout-guide.html
+
+#Lesson 1
+
+The Shiny package has eleven built-in examples that each demonstrate how Shiny works. Each example is a self-contained Shiny app.
+
+The Hello Shiny example plots a histogram of R’s faithful dataset with a configurable number of bins. Users can change the number of bins with a slider bar and the app will immediately respond to their input. You’ll use Hello Shiny to explore the structure of a Shiny app and to create your first app. 
+
+To run Hello Shiny, type: 
+```{r eval=FALSE}
+library(shiny)
+runExample("01_hello")
+```
+
+Structure of a Shiny App
+
+Shiny apps have two components: 
+
+* A user-interface script
+* A server script
+
+The user-interface (ui) script controls the layout and appearance of your app. It is defined in a source script named ui.R. Here is the ui.R script for the Hello Shiny example.
+
+##ui.R
+
+```{r eval=FALSE}
+library(shiny)
+
+# Define UI for application that draws a histogram
+shinyUI(fluidPage(
+
+  # Application title
+  titlePanel("Hello Shiny!"),
+
+  # Sidebar with a slider input for the number of bins
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("bins",
+                  "Number of bins:",
+                  min = 1,
+                  max = 50,
+                  value = 30)
+    ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
+      plotOutput("distPlot")
+    )
+  )
+))
+```
+
+The server.R script contains the instructions that your computer needs to build your app. Here is the server.R script for the Hello Shiny example.
+
+##server.R
+
+```{r eval=FALSE}
+library(shiny)
+
+# Define server logic required to draw a histogram
+shinyServer(function(input, output) {
+
+  # Expression that generates a histogram. The expression is
+  # wrapped in a call to renderPlot to indicate that:
+  #
+  #  1) It is "reactive" and therefore should re-execute automatically
+  #     when inputs change
+  #  2) Its output type is a plot
+
+  output$distPlot <- renderPlot({
+    x    <- faithful[, 2]  # Old Faithful Geyser data
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+    # draw the histogram with the specified number of bins
+    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+  })
+})
+```
+
+At one level, the Hello Shiny server.R script is very simple. The script does some calculations and then plots a histogram with the requested number of bins.
+
+However, you’ll also notice that most of the script is wrapped in a call to renderPlot. The comment above the function explains a bit about this, but if you find it confusing, don’t worry. We’ll cover this concept in much more detail soon.
+
+Play with the Hello Shiny app and review the source code. Try to develop a feel for how the app works.
+
+Your R session will be busy while the Hello Shiny app is active, so you will not be able to run any R commands. R is monitoring the app and executing the app’s reactions. To get your R session back, hit escape or click the stop sign icon (found in the upper right corner of the RStudio console panel).
+
+##Running an App
+
+Every Shiny app has the same structure: two R scripts saved together in a directory. At a minimum, a Shiny app has ui.R and server.R files.
+
+You can create a Shiny app by making a new directory and saving a ui.R and server.R file inside it. Each app will need its own unique directory. 
+
+You can run a Shiny app by giving the name of its directory to the function runApp. For example if your Shiny app is in a directory called my_app, run it with the following code:
+```{r eval=FALSE}
+library(shiny)
+runApp("my_app")
+```
+
+Note: runApp is similar to read.csv, read.table and many other functions in R. The first argument of runApp is the filepath from your working directory to the app’s directory. The code above assumes that the app directory is in your working directory. In this case, the filepath is just the name of the directory.
+
+(In case you are wondering, the Hello Shiny app’s files are saved in a special system directory called 01hello. This directory is designed to work with the runExample (01hello) call.)
+
+###Your Turn
+
+Create a new directory named App-1 in your working directory. Then copy and paste the ui.R and server.R scripts above into your directory (the scripts from Hello Shiny). 
+
+Launch your app by running runApp("App-1"). Then click escape and make some changes to your app:
+
+1. Change the title from “Hello Shiny!” to “Hello World!”.
+2. Set the minimum value of the slider bar to 5.
+3. Change the histogram color from "darkgray" to "skyblue".
+
+When you are ready, launch your app again. Your new app should match the image below. If it doesn’t, or if you want to check your code, press the model answers button to reveal how we did these tasks. 
+
+By default, **Shiny apps display in “normal” mode, like the app pictured above. Hello Shiny and the other built in examples display in “showcase mode”**, a different mode that displays the server.R and ui.R` scripts alongside the app.
+
+If you would like your app to display in showcase mode, you can run runApp("App-1", display.mode = "showcase").
+
+###Model Answer:
+
+Change the title of your app and the slider bar values in the ui.R script.
+
+```{r eval=FALSE}
+library(shiny)
+
+# Define UI for application that draws a histogram
+shinyUI(fluidPage(
+
+  # Application title
+  titlePanel("Hello World!"),
+
+  # Sidebar with a slider input for the number of bins
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput("bins",
+                  "Number of bins:",
+                  min = 5,
+                  max = 50,
+                  value = 30)
+    ),
+
+    # Show a plot of the generated distribution
+    mainPanel(
+      plotOutput("distPlot")
+    )
+  )
+))
+```
+
+Use the server.R script to change how your computer builds the histogram.
+```{r eval=FALSE}
+library(shiny)
+
+# Define server logic required to draw a histogram
+shinyServer(function(input, output) {
+
+  # Expression that generates a histogram. The expression is
+  # wrapped in a call to renderPlot to indicate that:
+  #
+  #  1) It is "reactive" and therefore should
+  #     re-execute automatically when inputs change
+  #  2) Its output type is a plot
+
+  output$distPlot <- renderPlot({
+    x    <- faithful[, 2]  # Old Faithful Geyser data
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+    # draw the histogram with the specified number of bins
+    hist(x, breaks = bins, col = 'skyblue', border = 'white')
+  })
+})
+```
+To relaunch your Shiny app:
+
+* Run runApp("App-1"), or
+* Open the ui.R or server.R scripts in your RStudio editor. RStudio will recognize the Shiny script and provide a Run App button (at the top of the editor). Either click this button to launch your app or use the keyboard shortcut: Command+Shift+Enter (Control+Shift+Enter on Windows).
+
+RStudio will launch the app in a new window by default, but **you can also choose to have the app launch in a dedicated viewer pane, or in your external web browser**. Make your selection by clicking the icon next to Run App.
+
+##Recap
+
+To create your own Shiny app:
+
+* Make a directory named for your app.
+* Save your app’s server.R and ui.R script inside that directory. 
+* Launch the app with runApp or RStudio’s keyboard shortcuts. 
+* Exit the Shiny app by clicking escape.
+
+##Go Further
+
+You can create Shiny apps by copying and modifying existing Shiny apps. The Shiny gallery provides some good examples, or use the eleven pre-built Shiny examples listed below. 
+```{r eval=FALSE}
+system.file("examples", package="shiny")
+
+runExample("01_hello") # a histogram
+runExample("02_text") # tables and data frames
+runExample("03_reactivity") # a reactive expression
+runExample("04_mpg") # global variables
+runExample("05_sliders") # slider bars
+runExample("06_tabsets") # tabbed panels
+runExample("07_widgets") # help text and submit buttons
+runExample("08_html") # Shiny app built from HTML
+runExample("09_upload") # file upload wizard
+runExample("10_download") # file download wizard
+runExample("11_timer") # an automated timer
+```
+Each demonstrates a feature of Shiny apps. All Shiny example apps open in “showcase” mode (with the ui.R and server.R scripts in the display).
+
+But why limit yourself to copying other apps? The next few lessons will show you how to build your own Shiny apps from scratch. You’ll learn about each part of a Shiny app, and finish by deploying your own Shiny app online.
+
+#Lesson 2
+
+##Build a user-interface 
+
+Now that you understand the structure of a Shiny app, it’s time to build your first app from scratch. This lesson will show you how to build a user-interface for your app. You will learn how to lay out the user-interface and then add text, images and other HTML elements to your Shiny app. We’ll use the App-1 app you made in Lesson 1. To get started, open its server.R and ui.R files. Edit the scripts to match the ones below: 
+
+```{r eval=FALSE}
+#ui.R
+
+shinyUI(fluidPage(
+))
+
+#server.R
+
+shinyServer(function(input, output) {
+})
+```
+
+This code is the bare minimum needed to create a Shiny app. The result is an empty app with a blank user-interface, an appropriate starting point for this lesson.
+
+###Layout
+
+Shiny ui.R scripts use the function fluidPage to create a display that automatically adjusts to the dimensions of your user’s browser window. You lay out your app by placing elements in the fluidPage function. 
+
+For example, the ui.R script below creates a user-interface that has a title panel and then a sidebar layout, which includes a sidebar panel and a main panel. Note that these elements are placed within the fluidPage function.
+```{r eval=FALSE}
+# ui.R
+
+shinyUI(fluidPage(
+  titlePanel("title panel"),
+
+  sidebarLayout(
+    sidebarPanel( "sidebar panel"),
+    mainPanel("main panel")
+  )
+))
+```
+
+*titlePanel* and *sidebarLayout* are the two most popular elements to add to fluidPage. They create a basic Shiny app with a sidebar. 
+
+sidebarLayout always takes two arguments: 
+
+* sidebarPanel function output
+* mainPanel function output
+
+These functions place content in either the sidebar or the main panels. The sidebar panel will appear on the left side of your app by default. You can move it to the right side by giving sidebarLayout the optional argument **position = "right"**.
+```{r eval=FALSE}
+#### ui.R
+
+shinyUI(fluidPage(
+  titlePanel("title panel"),
+
+  sidebarLayout(position = "right",
+    sidebarPanel( "sidebar panel"),
+    mainPanel("main panel")
+  )
+))
+```
+
+titlePanel and sidebarLayout create a basic layout for your Shiny app but you can create more advanced layouts. You can use **navbarPage** to give your app a multi-page user-interface that includes a navigation bar. Or you can use **fluidRow** and column to build your layout up from a grid system. If you’d like to learn more about these advanced options, read the *Shiny Application Layout Guide*. We will stick with sidebarLayout in this tutorial.
+
+###HTML Content
+
+You can add content to your Shiny app by placing it inside a **Panel** function. For example, the apps above display a character string in each of their panels. The words “sidebar panel” appear in the sidebar panel, because we added the string to the sidebarPanel function, e.gsidebarPanel("sidebar panel"). The same is true for the text in the title panel and the main panel. 
+
+To add more advanced content, use one of Shiny’s HTML tag functions. These functions parallel common HTML5 tags. Let’s try out a few of them.
+```{r eval=FALSE}
+| shiny function | HTML5 equivalent | creates                                          |
+|----------------|------------------|--------------------------------------------------|
+| p              | <p>              | A paragraph of text                              |
+| h1             | <h1>             | A first level header                             |
+| h2             | <h2>             | A second level header                            |
+| h3             | <h3>             | A third level header                             |
+| h4             | <h4>             | A fourth level header                            |
+| h5             | <h5>             | A fifth level header                             |
+| h6             | <h6>             | A sixth level header                             |
+| a              | <a>              | A hyper link                                     |
+| br             | <br>             | A line break (e.g. a blank line)                 |
+| div            | <div>            | A division of text with a uniform style          |
+| span           | <span>           | An in-line division of text with a uniform style |
+| pre            | <pre>            | Text ‘as is’ in a fixed width font               |
+| code           | <code>           | A formatted block of code                        |
+| img            | <img>            | An image                                         |
+| strong         | <strong>         | Bold text                                        |
+| em             | <em>             | Italicized text                                  |
+| HTML           |                  | Directly passes a character string as HTML code  |
+```
+
+###Headers
+
+To create a header element:
+
+* select a header function (e.g., h1 or h5)
+* give it the text you want to see in the header
+
+For example, you can create a first level header that says “My title” with h1("My title"). If you run the command at the command line, you’ll notice that it produces HTML code.
+```{r eval=FALSE}
+library(shiny)
+h1("My title")
+<h1>My title</h1>
+```
+
+To place the element in your app:
+
+* pass h1("My title") as an argument to titlePanel, sidebarPanel, or mainPanel
+
+The text will appear in the corresponding panel of your web page. You can place multiple elements in the same panel if you separate them with a comma.
+
+Give this a try. The new script below uses all six levels of headers. Update your ui.R to match the script and then relaunch your app. Remember to relaunch a Shiny app you may run runApp("App-1"), click the Run App button, or use your keyboard shortcuts.
+```{r eval=FALSE}
+# ui.R
+
+shinyUI(fluidPage(
+  titlePanel("My Shiny App"),
+  sidebarLayout(
+    sidebarPanel(),
+    mainPanel(
+      h1("First level title"),
+      h2("Second level title"),
+      h3("Third level title"),
+      h4("Fourth level title"),
+      h5("Fifth level title"),
+      h6("Sixth level title")
+    )
+  )
+))
+```
+
+You can create an effect with align = "center", as in h6("Episode IV", align = "center"). In general, any HTML tag attribute can be set as an argument in any Shiny tag function. If you are unfamiliar with HTML tag attributes, you can look them up in one of the many free online HTML resources such as w3schools.
+
+Here’s the code that made the Star Wars-inspired user-interface:
+```{r eval=FALSE}
+# ui.R
+
+shinyUI(fluidPage(
+  titlePanel("My Shiny App"),
+  sidebarLayout(
+    sidebarPanel(),
+    mainPanel(
+        h6("Episode IV", align = "center"),
+        h6("A NEW HOPE", align = "center"),
+        h5("It is a period of civil war.", align = "center"),
+        h4("Rebel spaceships, striking", align = "center"),
+        h3("from a hidden base, have won", align = "center"),
+        h2("their first victory against the", align = "center"),
+        h1("evil Galactic Empire.")
+    )
+  )
+))
+```
+
+###Formatted text
+
+Shiny offers many tag functions for formatting text. The easiest way to describe them is by running through an example. Paste the ui.R script below into your ui.R file and save it. If your Shiny app is still running, you can refresh your web page or preview window, and it will display the changes. If your app is closed, just relaunch it.
+
+Compare the displayed app to your updated ui.R script to discover how to format text in a Shiny app.
+```{r eval=FALSE}
+# ui.R
+
+shinyUI(fluidPage(
+  titlePanel("My Shiny App"),
+  sidebarLayout(
+    sidebarPanel(),
+    mainPanel(
+      p("p creates a paragraph of text."),
+      p("A new p() command starts a new paragraph. Supply a style attribute to change the format of the entire paragraph.", style = "font-family: 'times'; font-si16pt"),
+      strong("strong() makes bold text."),
+      em("em() creates italicized (i.e, emphasized) text."),
+      br(),
+      code("code displays your text similar to computer code"),
+      div("div creates segments of text with a similar style. This division of text is all blue because I passed the argument 'style = color:blue' to div", style = "color:blue"),
+      br(),
+      p("span does the same thing as div, but it works with",
+        span("groups of words", style = "color:blue"),
+        "that appear inside a paragraph.")
+    )
+  )
+))
+```
+
+###Images
+
+Images can enhance the appearance of your app and help your users understand the content. Shiny looks for the img function to place image files in your app. To insert an image, give the img function the name of your image file as the src argument (e.g., img(src = "my_image.png")). You must spell out this argument since img passes your input to an HTML tag and src is what the tag expects.
+
+You can also include other HTML friendly parameters such as height and width. Note that height and width numbers will refer to pixels. 
+
+img(src = "my_image.png", height = 72, width = 72)
+
+The img function looks for your image file in a specific place. Your file must be in a folder named www in the same directory as the ui.R script. Shiny treats this directory in a special way. Shiny will share any file placed here with your user’s web browser, which makes www a great place to put images, style sheets, and other things the browser will need to build the wep components of your Shiny app.
+```{r eval=FALSE}
+# ui.R
+
+shinyUI(fluidPage(
+  titlePanel("My Shiny App"),
+  sidebarLayout(
+    sidebarPanel(),
+    mainPanel(
+      tags$img(src="bigorb.png", height = 400, width = 400)
+    )
+  )
+))
+```
+
+###Other tags
+
+This lesson covers the most popular Shiny tag functions, but there are many more tag functions for you to use. You can learn about additional tag functions in Customize your UI with HTML and the Shiny HTML Tags Glossary.
+
+You can use Shiny’s layout, HTML, and img functions to create very attractive and useful user-interfaces. See how well you understand these functions by recreating the Shiny app pictured below. Use the examples in this tutorial to work on it and then test it out. 
+
+Model Answer:
+
+```{r eval=FALSE}
+# ui.R
+
+shinyUI(fluidPage(
+  titlePanel("My Shiny App"),
+  sidebarLayout(
+    sidebarPanel(
+      h2("Installation"),
+      p("Shiny is available on CRAN, so you can install it in the usual way from your R console:"),
+      code('install.packages("shiny")'),
+      br(),
+      br(),
+      br(),
+      br(),
+      img(src = "bigorb.png", height = 72, width = 72),
+      "shiny is a product of ", 
+        span("RStudio", style = "color:blue")
+    ),
+    mainPanel(
+      h1("Introducing Shiny"),
+      p("Shiny is a new package from RStudio that makes it ", 
+        em("incredibly easy"), 
+        " to build interactive web applications with R."),
+      br(),
+      p("For an introduction and live examples, visit the ",
+        a("Shiny homepage.", 
+          href = "http://www.rstudio.com/shiny")),
+      br(),
+      h2("Features"),
+      p("* Build useful web applications with only a few lines of code—no JavaScript required."),
+      p("* Shiny applications are automatically “live” in the same way that ", 
+        strong("spreadsheets"),
+        " are live. Outputs change instantly as users modify inputs, without requiring a reload of the browser.")
+    )
+  )
+))
+
+```
+
+Recap
+
+With your new skills, you can:
+
+* create a user-interface with fluidPage, titlePanel and sidebarLayout
+* create an HTML element with one of Shiny’s tag functions
+* set HTML tag attributes in the arguments of each tag function
+* add an element to your web page by passing it to titlePanel, sidebarPanel or mainPanel
+* add multiple elements to each panel by separating them with a comma
+* add images by placing your image in a folder labeled www within your Shiny app directory and then calling the img function
+
+Now that you can place simple content in your user-interface, let’s look at how you would place more complicated content, like widgets. Widgets are interactive web elements that your user can use to control the app. They are also the subject of Lesson 3.
+
+#Lesson 3
+
+##Add control widgets 
+
+This lesson will show you how to add control widgets to your Shiny apps. What’s a widget? A web element that your users can interact with. Widgets provide a way for your users to send messages to the Shiny app. Shiny widgets collect a value from your user. When a user changes the widget, the value will change as well. This sets up opportunities that we’ll explore in Lesson 4. 
+
+###Control widgets
+
+Shiny comes with a family of pre-built widgets, each created with a transparently named R function. For example, Shiny provides a function named actionButton that creates an Action Button and a function namessliderInput that creates a slider bar. 
+
+The standard Shiny widgets are: 
+
+
+| function           | widget                                         |
+|--------------------|------------------------------------------------|
+| actionButton       | Action Button                                  |
+| checkboxGroupInput | A group of check boxes                         |
+| checkboxInput      | A single check box                             |
+| dateInput          | A calendar to aid date selection               |
+| dateRangeInput     | A pair of calendars for selecting a date range |
+| fileInput          | A file upload control wizard                   |
+| helpText           | Help text that can be added to an input form   |
+| numericInput       | A field to enter numbers                       |
+| radioButtons       | A set of radio buttons                         |
+| selectInput        | A box with choices to select from              |
+| sliderInput        | A slider bar                                   |
+| submitButton       | A submit button                                |
+| textInput          | A field to enter text                          |
+
+Some of these widgets are built using the Twitter Bootstrap project, a popular open source framework for building user-interfaces.
+
+###Adding widgets
+
+You can add widgets to your web page in the same way that you added other types of HTML content in Lesson 2. To add a widget to your app, place a widget function in sidebarPanel or mainPanel in your ui.R file.  Each widget function requires several arguments. The first two arguments for each widget are:
+
+* A Name for the widget. The user will not see this name, but you can use it to access the widget’s value. The name should be a character string. 
+* A label. This label will appear with the widget in your app. It should be a character string, but it can be an empty string "". 
+
+The remaining arguments vary from widget to widget, depending on what the widget needs to do its job. They include things the widget needs to do its job, like initial values, ranges, and increments. You can find the exact arguments needed by a widget on the widget function’s help page, (e.g., ?selectInput).
+
+Play with each widget to get a feel for what it does. Experiment with changing the values of the widget functions and observe the effects. If you are interested in the layout scheme for this Shiny app, read the description in the application layout guide[http://shiny.rstudio.com/articles/layout-guide.html]. This lesson will not cover this slightly more complicated layout scheme, but it is interesting to note what it does.
+```{r eval=FALSE}
+ ui.R
+
+shinyUI(fluidPage(
+  titlePanel("Basic widgets"),
+  
+  fluidRow(
+    
+    column(3,
+      h3("Buttons"),
+      actionButton("action", label = "Action"),
+      br(),
+      br(), 
+      submitButton("Submit")),
+    
+    column(3,
+      h3("Single checkbox"),
+      checkboxInput("checkbox", label = "Choice A", value = TRUE)),
+    
+    column(3, 
+      checkboxGroupInput("checkGroup", 
+        label = h3("Checkbox group"), 
+        choices = list("Choice 1" = 1, 
+           "Choice 2" = 2, "Choice 3" = 3),
+        selected = 1)),
+    
+    column(3, 
+      dateInput("date", 
+        label = h3("Date input"), 
+        value = "2014-01-01"))   
+  ),
+  
+  fluidRow(
+    
+    column(3,
+      dateRangeInput("dates", label = h3("Date range"))),
+    
+    column(3,
+      fileInput("file", label = h3("File input"))),
+    
+    column(3, 
+      h3("Help text"),
+      helpText("Note: help text isn't a true widget,", 
+        "but it provides an easy way to add text to",
+        "accompany other widgets.")),
+    
+    column(3, 
+      numericInput("num", 
+        label = h3("Numeric input"), 
+        value = 1))   
+  ),
+    
+  fluidRow(
+    
+    column(3,
+      radioButtons("radio", label = h3("Radio buttons"),
+        choices = list("Choice 1" = 1, "Choice 2" = 2,
+                       "Choice 3" = 3),selected = 1)),
+    
+    column(3,
+      selectInput("select", label = h3("Select box"), 
+        choices = list("Choice 1" = 1, "Choice 2" = 2,
+                       "Choice 3" = 3), selected = 1)),
+    
+    column(3, 
+      sliderInput("slider1", label = h3("Sliders"),
+        min = 0, max = 100, value = 50),
+      sliderInput("slider2", "",
+        min = 0, max = 100, value = c(25, 75))
+      ),
+    
+    column(3, 
+      textInput("text", label = h3("Text input"), 
+        value = "Enter text..."))   
+  )
+
+))
+
+```
+
+Your turn
+
+Rewrite your ui.R script to create the user-interface displayed below. Notice that this Shiny app uses a basic Shiny layout (no columns) and contains three of the widgets pictured above. The other values of the select box are shown below the image of the app. 
+
+Model Answer
+```{r eval=FALSE}
+# ui.R
+
+shinyUI(fluidPage(
+  titlePanel("censusVis"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      helpText("Create demographic maps with 
+        information from the 2010 US Census."),
+      
+      selectInput("var", 
+        label = "Choose a variable to display",
+        choices = list("Percent White", "Percent Black",
+          "Percent Hispanic", "Percent Asian"),
+        selected = "Percent White"),
+      
+      sliderInput("range", 
+        label = "Range of interest:",
+        min = 0, max = 100, value = c(0, 100))
+    ),
+    
+    mainPanel()
+  )
+))
+
+```
+#Recap
+
+It is easy to add fully functional widgets to your Shiny app. 
+
+* Shiny provides a family of functions to create these widgets. 
+* Each function requires a name and a label. 
+* Some widgets need specific instructions to do their jobs.
+* You add widgets to your Shiny app just like you added other types of HTML content (see Lesson 2)
+
+#Go Further
+
+The Shiny Widgets Gallery provides templates that you can use to quickly add widgets to your Shiny apps.
+
+To use a template, visit the gallery. The gallery displays each of Shiny’s widgets, and demonstrates how the widgets’ values change in response to your input. 
+
+http://shiny.rstudio.com/gallery/widget-gallery.html  It looks like this:
+
+![](./ShinyTutorialOfficial/widgets-gallery.png)
+
+#Lesson 4
+
+
