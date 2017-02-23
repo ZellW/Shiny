@@ -2,6 +2,9 @@
 title: "Shiny Tutorial Official"
 output: html_document
 ---
+```{r}
+setwd("C:\\Users\\cweaver\\Documents\\GitHub\\Shiny")
+```
 
 See http://shiny.rstudio.com/tutorial/lesson1/
 Layout Guide: http://shiny.rstudio.com/articles/layout-guide.html
