@@ -1,0 +1,13 @@
+app <- ShinyDriver$new("../")
+app$snapshotInit("mytest")
+
+app$snapshot()
+app$setInputs(sex = "male")
+app$setInputs(height = 176)
+app$setInputs(height = 182)
+app$setInputs(add_drink = "click")
+app$setInputs(add_drink = "click")
+app$setInputs(add_drink = "click")
+app$setInputs(add_drink = "click")
+app$setInputs(add_drink = "click")
+app$setInputs(add_drink = "click")

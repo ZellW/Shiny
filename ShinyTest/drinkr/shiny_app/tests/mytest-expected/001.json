@@ -1,0 +1,183 @@
+{
+  "input": {
+    "add_drink": 0,
+    "alc_perc": 5,
+    "client_time": "",
+    "client_time_zone_offset": "",
+    "drink_time": "1507113600",
+    "drink_time-selectized": "",
+    "drink_type": "beer",
+    "drink_type-selectized": "",
+    "elimination": 0.018,
+    "halflife": 12,
+    "height": 170,
+    "sex": "unknown",
+    "sex-selectized": "",
+    "volume": 33,
+    "weight": 82
+  },
+  "output": {
+    "alc_perc_input": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" for=\"alc_perc\">Percent alcohol<\/label>\n  <input class=\"js-range-slider\" id=\"alc_perc\" data-min=\"0\" data-max=\"100\" data-from=\"5\" data-step=\"1\" data-grid=\"true\" data-grid-num=\"10\" data-grid-snap=\"false\" data-prettify-separator=\",\" data-prettify-enabled=\"true\" data-keyboard=\"true\" data-data-type=\"number\"/>\n<\/div>",
+      "deps": [
+        {
+          "name": "ionrangeslider",
+          "version": "2.1.6",
+          "src": {
+            "href": "shared/ionrangeslider"
+          },
+          "meta": null,
+          "script": "js/ion.rangeSlider.min.js",
+          "stylesheet": [
+            "css/ion.rangeSlider.css",
+            "css/ion.rangeSlider.skinShiny.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "strftime",
+          "version": "0.9.2",
+          "src": {
+            "href": "shared/strftime"
+          },
+          "meta": null,
+          "script": "strftime-min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "bac_plot": {
+      "src": "[image data sha1: 213f5d7776b52769c2ea908b28a077acffd21bf6]",
+      "width": 744,
+      "height": 400,
+      "coordmap": {
+        "panels": [
+          {
+            "domain": {
+              "left": -1.08,
+              "right": 1.08,
+              "bottom": -1.08,
+              "top": 1.08
+            },
+            "range": {
+              "left": 59.04,
+              "right": 722.4,
+              "bottom": 399,
+              "top": 359
+            },
+            "log": {
+              "x": null,
+              "y": null
+            },
+            "mapping": {
+
+            }
+          }
+        ],
+        "dims": {
+          "width": 744,
+          "height": 400
+        }
+      }
+    },
+    "drink_time_input": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" for=\"drink_time\">Drink time<\/label>\n  <div>\n    <select id=\"drink_time\"><option value=\"1507070400\">22:40<\/option>\n<option value=\"1507071000\">22:50<\/option>\n<option value=\"1507071600\">23:00<\/option>\n<option value=\"1507072200\">23:10<\/option>\n<option value=\"1507072800\">23:20<\/option>\n<option value=\"1507073400\">23:30<\/option>\n<option value=\"1507074000\">23:40<\/option>\n<option value=\"1507074600\">23:50<\/option>\n<option value=\"1507075200\">00:00<\/option>\n<option value=\"1507075800\">00:10<\/option>\n<option value=\"1507076400\">00:20<\/option>\n<option value=\"1507077000\">00:30<\/option>\n<option value=\"1507077600\">00:40<\/option>\n<option value=\"1507078200\">00:50<\/option>\n<option value=\"1507078800\">01:00<\/option>\n<option value=\"1507079400\">01:10<\/option>\n<option value=\"1507080000\">01:20<\/option>\n<option value=\"1507080600\">01:30<\/option>\n<option value=\"1507081200\">01:40<\/option>\n<option value=\"1507081800\">01:50<\/option>\n<option value=\"1507082400\">02:00<\/option>\n<option value=\"1507083000\">02:10<\/option>\n<option value=\"1507083600\">02:20<\/option>\n<option value=\"1507084200\">02:30<\/option>\n<option value=\"1507084800\">02:40<\/option>\n<option value=\"1507085400\">02:50<\/option>\n<option value=\"1507086000\">03:00<\/option>\n<option value=\"1507086600\">03:10<\/option>\n<option value=\"1507087200\">03:20<\/option>\n<option value=\"1507087800\">03:30<\/option>\n<option value=\"1507088400\">03:40<\/option>\n<option value=\"1507089000\">03:50<\/option>\n<option value=\"1507089600\">04:00<\/option>\n<option value=\"1507090200\">04:10<\/option>\n<option value=\"1507090800\">04:20<\/option>\n<option value=\"1507091400\">04:30<\/option>\n<option value=\"1507092000\">04:40<\/option>\n<option value=\"1507092600\">04:50<\/option>\n<option value=\"1507093200\">05:00<\/option>\n<option value=\"1507093800\">05:10<\/option>\n<option value=\"1507094400\">05:20<\/option>\n<option value=\"1507095000\">05:30<\/option>\n<option value=\"1507095600\">05:40<\/option>\n<option value=\"1507096200\">05:50<\/option>\n<option value=\"1507096800\">06:00<\/option>\n<option value=\"1507097400\">06:10<\/option>\n<option value=\"1507098000\">06:20<\/option>\n<option value=\"1507098600\">06:30<\/option>\n<option value=\"1507099200\">06:40<\/option>\n<option value=\"1507099800\">06:50<\/option>\n<option value=\"1507100400\">07:00<\/option>\n<option value=\"1507101000\">07:10<\/option>\n<option value=\"1507101600\">07:20<\/option>\n<option value=\"1507102200\">07:30<\/option>\n<option value=\"1507102800\">07:40<\/option>\n<option value=\"1507103400\">07:50<\/option>\n<option value=\"1507104000\">08:00<\/option>\n<option value=\"1507104600\">08:10<\/option>\n<option value=\"1507105200\">08:20<\/option>\n<option value=\"1507105800\">08:30<\/option>\n<option value=\"1507106400\">08:40<\/option>\n<option value=\"1507107000\">08:50<\/option>\n<option value=\"1507107600\">09:00<\/option>\n<option value=\"1507108200\">09:10<\/option>\n<option value=\"1507108800\">09:20<\/option>\n<option value=\"1507109400\">09:30<\/option>\n<option value=\"1507110000\">09:40<\/option>\n<option value=\"1507110600\">09:50<\/option>\n<option value=\"1507111200\">10:00<\/option>\n<option value=\"1507111800\">10:10<\/option>\n<option value=\"1507112400\">10:20<\/option>\n<option value=\"1507113000\">10:30<\/option>\n<option value=\"1507113600\" selected>10:40<\/option>\n<option value=\"1507114200\">10:50<\/option>\n<option value=\"1507114800\">11:00<\/option>\n<option value=\"1507115400\">11:10<\/option>\n<option value=\"1507116000\">11:20<\/option>\n<option value=\"1507116600\">11:30<\/option>\n<option value=\"1507117200\">11:40<\/option>\n<option value=\"1507117800\">11:50<\/option>\n<option value=\"1507118400\">12:00<\/option>\n<option value=\"1507119000\">12:10<\/option>\n<option value=\"1507119600\">12:20<\/option>\n<option value=\"1507120200\">12:30<\/option>\n<option value=\"1507120800\">12:40<\/option>\n<option value=\"1507121400\">12:50<\/option>\n<option value=\"1507122000\">13:00<\/option>\n<option value=\"1507122600\">13:10<\/option>\n<option value=\"1507123200\">13:20<\/option>\n<option value=\"1507123800\">13:30<\/option>\n<option value=\"1507124400\">13:40<\/option>\n<option value=\"1507125000\">13:50<\/option>\n<option value=\"1507125600\">14:00<\/option>\n<option value=\"1507126200\">14:10<\/option>\n<option value=\"1507126800\">14:20<\/option>\n<option value=\"1507127400\">14:30<\/option>\n<option value=\"1507128000\">14:40<\/option>\n<option value=\"1507128600\">14:50<\/option>\n<option value=\"1507129200\">15:00<\/option>\n<option value=\"1507129800\">15:10<\/option>\n<option value=\"1507130400\">15:20<\/option>\n<option value=\"1507131000\">15:30<\/option>\n<option value=\"1507131600\">15:40<\/option>\n<option value=\"1507132200\">15:50<\/option>\n<option value=\"1507132800\">16:00<\/option>\n<option value=\"1507133400\">16:10<\/option>\n<option value=\"1507134000\">16:20<\/option>\n<option value=\"1507134600\">16:30<\/option>\n<option value=\"1507135200\">16:40<\/option>\n<option value=\"1507135800\">16:50<\/option>\n<option value=\"1507136400\">17:00<\/option>\n<option value=\"1507137000\">17:10<\/option>\n<option value=\"1507137600\">17:20<\/option>\n<option value=\"1507138200\">17:30<\/option>\n<option value=\"1507138800\">17:40<\/option>\n<option value=\"1507139400\">17:50<\/option>\n<option value=\"1507140000\">18:00<\/option>\n<option value=\"1507140600\">18:10<\/option>\n<option value=\"1507141200\">18:20<\/option>\n<option value=\"1507141800\">18:30<\/option>\n<option value=\"1507142400\">18:40<\/option>\n<option value=\"1507143000\">18:50<\/option>\n<option value=\"1507143600\">19:00<\/option>\n<option value=\"1507144200\">19:10<\/option>\n<option value=\"1507144800\">19:20<\/option>\n<option value=\"1507145400\">19:30<\/option>\n<option value=\"1507146000\">19:40<\/option>\n<option value=\"1507146600\">19:50<\/option>\n<option value=\"1507147200\">20:00<\/option>\n<option value=\"1507147800\">20:10<\/option>\n<option value=\"1507148400\">20:20<\/option>\n<option value=\"1507149000\">20:30<\/option>\n<option value=\"1507149600\">20:40<\/option>\n<option value=\"1507150200\">20:50<\/option>\n<option value=\"1507150800\">21:00<\/option>\n<option value=\"1507151400\">21:10<\/option>\n<option value=\"1507152000\">21:20<\/option>\n<option value=\"1507152600\">21:30<\/option>\n<option value=\"1507153200\">21:40<\/option>\n<option value=\"1507153800\">21:50<\/option>\n<option value=\"1507154400\">22:00<\/option>\n<option value=\"1507155000\">22:10<\/option>\n<option value=\"1507155600\">22:20<\/option>\n<option value=\"1507156200\">22:30<\/option>\n<option value=\"1507156800\">22:40<\/option><\/select>\n    <script type=\"application/json\" data-for=\"drink_time\" data-nonempty=\"\">{}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.11.2",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": "<!--[if lt IE 9]>\n<script src=\"shared/selectize/js/es5-shim.min.js\"><\/script>\n<![endif]-->\n<script src=\"shared/selectize/js/selectize.min.js\"><\/script>",
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "drink_type_input": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" for=\"drink_type\">Drink type<\/label>\n  <div>\n    <select id=\"drink_type\"><option value=\"beer\" selected>beer<\/option>\n<option value=\"wine\">wine<\/option>\n<option value=\"long drink\">long drink<\/option>\n<option value=\"cocktail\">cocktail<\/option>\n<option value=\"shot\">shot<\/option>\n<option value=\"eggnog\">eggnog<\/option><\/select>\n    <script type=\"application/json\" data-for=\"drink_type\" data-nonempty=\"\">{}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.11.2",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": "<!--[if lt IE 9]>\n<script src=\"shared/selectize/js/es5-shim.min.js\"><\/script>\n<![endif]-->\n<script src=\"shared/selectize/js/selectize.min.js\"><\/script>",
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "drunken_drinks_input": {
+      "html": "",
+      "deps": [
+
+      ]
+    },
+    "height_text": "Height in cm (170 cm = 5'7'')",
+    "remove_drink_input": {
+      "html": "",
+      "deps": [
+
+      ]
+    },
+    "volume_input": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" for=\"volume\"><\/label>\n  <input class=\"js-range-slider\" id=\"volume\" data-min=\"1\" data-max=\"120\" data-from=\"33\" data-step=\"1\" data-grid=\"true\" data-grid-num=\"9.91666666666667\" data-grid-snap=\"false\" data-prettify-separator=\",\" data-prettify-enabled=\"true\" data-keyboard=\"true\" data-data-type=\"number\"/>\n<\/div>",
+      "deps": [
+        {
+          "name": "ionrangeslider",
+          "version": "2.1.6",
+          "src": {
+            "href": "shared/ionrangeslider"
+          },
+          "meta": null,
+          "script": "js/ion.rangeSlider.min.js",
+          "stylesheet": [
+            "css/ion.rangeSlider.css",
+            "css/ion.rangeSlider.skinShiny.css"
+          ],
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        },
+        {
+          "name": "strftime",
+          "version": "0.9.2",
+          "src": {
+            "href": "shared/strftime"
+          },
+          "meta": null,
+          "script": "strftime-min.js",
+          "stylesheet": null,
+          "head": null,
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "volume_text": "Volume in cl (33 cl = 11.2 fl oz)",
+    "weight_text": "Weight in kg (82 kg = 181 lb)"
+  },
+  "export": {
+
+  }
+}
