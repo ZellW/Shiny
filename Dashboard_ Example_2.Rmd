@@ -1,0 +1,66 @@
+---
+title: "Dashboard Visualizations Example 2"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+---
+
+# Introduction
+
+Learn how to make Automated Dashboard with various correlation visualizations in R. First you need to install the `rmarkdown` package into your R library. Assuming that you installed the `rmarkdown`, next you create a new `rmarkdown` script in R. 
+
+Reference
+
+https://datascienceplus.com/automated-dashboard-with-visualization-and-regression-for-healthcare-data/
+
+
+```{r message=FALSE}
+setwd("~/R/Complete") #change as needed
+
+# options
+options(echo=TRUE)
+options(stringsAsFactors=FALSE)
+options(scipen=999)  # turn-off scientific notation like 1e+48
+
+if(!require(easypackages)){install.packages("easypackages")}
+library(easypackages)
+packages("flexdashboard", "tidyverse", "gganimate", "data.table", "plotly", "readr",
+        prompt = TRUE)
+
+theme_set(theme_bw())  # pre-set the bw theme.
+```
+
+```{r}
+insurance <-as.data.frame(read_csv("./data/insurance.csv"))
+```
+
+# Dashboard
+
+Row
+-----------------------------------------------------------------------
+
+### Plotly Regression
+
+```{r}
+insurance %>% ggplot(aes(x =  bmi, y = charges, color = smoker)) + geom_point() + 
+  geom_smooth(method = "lm")
+ggplotly(p = ggplot2::last_plot())
+```
+
+Column {.tabset .tabset-fade}
+-----------------------------------------------------------------------
+
+### Violin plot
+
+```{r}
+insurance %>% ggplot(aes(x = smoker, y = charges, fill = smoker, color = smoker)) + geom_violin()
+ggplotly(p = ggplot2::last_plot())
+```
+
+### Animation Scatter plot
+
+```{r}
+insurance %>% plot_ly(x = ~bmi, y = ~charges, color = ~smoker, size = ~children, frame = ~age,
+          type = 'scatter', mode = 'markers', showlegend = T)
+```
+

@@ -1,0 +1,192 @@
+---
+title: "Organizing R Shiny Apps"
+output: html_document
+---
+
+# Introduction
+
+Keeping R Shiny code organized can be a challenge. One method to organize your Shiny UI and Server code is to use a combination of R's list and source functions. 
+
+- Difficulty Organizing Shiny UIs 
+  - A UI Source Example That Usually Doesn't Work
+  - When Source Fails in the UI
+  - Solution
+  - Usage Note
+- Organizing the Shiny Server with Source
+- Summary
+
+# Difficulty Organizing Shiny UIs
+
+If you have a Shiny application with a lot of controls, it's easy to get lost in the braces, parentheses and brackets. Using R's `list()` and `source()` functions, we can make UI code much more manageable by moving components out to other files.
+
+To get us started, we are going to work with the starter app provided in R studio. Click File ???New ???Shiny Web App. . A dialogue box will pop up. Give the app a name, select *Single File App* and save to teh directory of your choice.
+
+Start with the UI portion of the Shiny app. The UI can be broken down into two parts the *Side Bar Panel*  and the *Main Panel*" [lines 15-17*]. Factor out the content in the Side Bar Panel to a file named `Side_Panel_CTRL.`R and the Main Panel content to a file named `Main_Panel_OUTPUT.R`.
+
+```{r eval=FALSE}
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+
+    # Application title
+    titlePanel("Old Faithful Geyser Data"),
+
+    # Sidebar with a slider input for number of bins 
+    sidebarLayout(
+        sidebarPanel(
+            sliderInput("bins",
+                        "Number of bins:", min = 1, max = 50, value = 30)
+        ),
+
+        # Show a plot of the generated distribution
+        mainPanel(
+           plotOutput("distPlot")
+        )
+    )
+)
+```
+
+From the `app.R` file:
+
+- MOVE the sliderInput to the `Side_Panel_Control.R` file
+- MOVE the plotOutput to the `Main_Panel_OUTPUT.R`. 
+
+Ensure the two new files are saved in the same folder as your `app.R` file.
+
+Side_Panel_Control.R
+
+```{r eval=FALSE}
+sliderInput("bins", "Number of bins:", min = 1, max = 50, value = 30)
+```
+
+Main_Panel_OUTPUT.R
+
+```{r eval=FALSE}
+plotOutput("distPlot")
+```
+
+Once the files setup, add `source()` statements to  `app.R` file.
+
+```{r eval=FALSE}
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+   titlePanel("List and Source UI"), # Title Page
+ 
+   # Sidebar with a slider input for number of bins
+   sidebarLayout(  
+      sidebarPanel( # The Side Bar
+        source(file = "Side_Panel_CTRL.R", local = T)[1]
+      ),
+   # Show a plot of the generated distribution    
+   mainPanel( 
+        source(file="Main_Panel_OUTPUT.R", local=T)[1]
+      )
+   )
+)
+```
+
+> Without adding "[1]" to the end of the source() statement, the word TRUE pops up at the bottom of the slider control and the plot. Not sure why this happens but simply fixed.
+
+# When Source Fails in the UI
+
+If another control is added to `app.R` like a textbox control:
+
+```{r eval=FALSE}
+ui <- fluidPage(
+    titlePanel("List and Source UI"), # Title Page
+    
+    # Sidebar with a slider input for number of bins
+    sidebarLayout(  
+        sidebarPanel( # The Side Bar
+            source(file = "Side_Panel_CTRL.R", local = T)[1]
+        ),
+          #text box control
+          textInput("textBox1", label = "Enter Value")   
+    ),
+        # Show a plot of the generated distribution    
+        mainPanel( 
+            source(file="Main_Panel_OUTPUT.R", local=T)[1]
+        )
+    )
+)
+```
+
+The application works as intended.  BUT, if the textbox control is added to `Side_Panel_CTRL.R`, the app fails.  The need to organize the Shiny app requires a solution - and it is an easy one.
+
+# Solution
+
+The simple fix is to wrap the code in UI files with the list command.
+
+SidePanel_CTRL.R
+
+```{r eval=FALSE}
+list(
+  sliderInput("bins", "Number of bins:", min = 1, max = 50, value = 30)
+  ),
+  #text box control
+          textInput("textBox1", label = "Enter Value")
+)
+```
+
+Main_Panel_OUTOUT.R
+
+```{r eval=FALSE}
+list(
+  plotOutput("distPlot")
+)
+```
+
+`source()` and `list()` combo are particularly useful when working with tabbed panels.The controls for these two panels are coded in the source files.
+
+```{r}
+ui <- fluidPage(
+    titlePanel("List and Source UI"), # Title Page
+    
+    # Sidebar with a slider input for number of bins
+    sidebarLayout(  
+        sidebarPanel( # The Side Bar
+          tabsetPanel(
+            tabPanel("Panel 1", source(file = "Side_Panel_CTRL.R", local = T)[1]),
+            tabPanel("Panel 2", source(file = "Side_Panel2_CTRL.R", local = T)[1])
+            )
+        ),
+        # Show a plot of the generated distribution    
+        mainPanel( 
+            source(file="Main_Panel_OUTPUT.R", local=T)[1]
+        )
+    )
+)
+```
+
+# Organizing the Shiny Server
+
+Server side Shiny is simply R-code and can be easily sourced from an external file using the `source()` command without list.
+
+The only trick with server side Shiny is dealing with the reactive elements like `reactive({.})`. Keep `renderPlot({})` reactive element in the `app.R` and source from within:
+
+**Original Server Code**
+```{r eval=FALSE}
+server <- function(input, output) {
+   output$distPlot <- renderPlot({
+     # generate bins based on input$bins from ui.R
+     x    <- faithful[, 2] 
+     bins <- seq(min(x), max(x), length.out = input$bins + 1)
+     # draw the histogram with the specified number of bins
+     hist(x, breaks = bins, col = 'darkgray', border = 'white')
+   })
+}
+```
+
+**New Server Code**
+```{r eval=FALSE}
+server <- function(input, output) {
+   output$distPlot <- renderPlot({
+     source(file="Server_Plot.R", local=T) 
+   })
+}
+```
+
+> Notice that compared to the UI side, we did not need to place the "[1]" at the end of the source command.
+
+# Reference
+
+http://r-bar.net/organize-r-shiny-list-source/

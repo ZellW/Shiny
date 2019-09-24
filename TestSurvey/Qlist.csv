@@ -1,0 +1,45 @@
+Qnum,Question,Answer1,Answer2,Answer3,Answer4
+1,Please quanitfy your skills using Python,None,Basic,Moderate,Advanced
+2,Please quanitfy your skills using SAS,None,Basic,Moderate,Advanced
+3,Please quanitfy your skills using SQL/SSIS,None,Basic,Moderate,Advanced
+4,Please quanitfy your skills using HUE,None,Basic,Moderate,Advanced
+5,Please quanitfy your skills using Navigator,None,Basic,Moderate,Advanced
+6,Please quanitfy your skills using DSWB,None,Basic,Moderate,Advanced
+7,How familiar are you with Spark?,None,Basic,Moderate,Advanced
+8,Please quanitfy your skills using Rstudio,None,Basic,Moderate,Advanced
+9,Are you skilled using all the features of Anaconda?,None,Basic,Moderate,Advanced
+10,How familiar are you with SSMS?,None,Basic,Moderate,Advanced
+11,How familiar are you with PowerBI?,None,Basic,Moderate,Advanced
+12,Please quanitfy your skills using Tableau,None,Basic,Moderate,Advanced
+13,DataRobot - are you an experienced customer?,None,Basic,Moderate,Advanced
+14,Are you familiar with H2O?,None,Basic,Moderate,Advanced
+15,Have you built any predictive models focused on Employee Attrition?,None,Basic,Moderate,Advanced
+16,Have you built any predictive models focused on Customer Churn?,None,Basic,Moderate,Advanced
+17,Have you built any predictive models focused on Marketing Analytics?,None,Basic,Moderate,Advanced
+18,Have you built any predictive models focused on Fraud & Anomaly Detection?,None,Basic,Moderate,Advanced
+19,Have you built any predictive models focused on Predictive Maintenance?,None,Basic,Moderate,Advanced
+20,Have you built any predictive models focused on Price Optimization?,None,Basic,Moderate,Advanced
+21,Have you built any predictive models focused on (Radical) Personalization?,None,Basic,Moderate,Advanced
+22,Have you built any predictive models focused on Product Forecasting?,None,Basic,Moderate,Advanced
+23,Have you built any predictive models focused on Resource Allocation?,None,Basic,Moderate,Advanced
+24,Have you built any predictive models using Linear Regression?,None,Basic,Moderate,Advanced
+25,Have you built any predictive models using Logistic  Regression?,None,Basic,Moderate,Advanced
+26,Have you built any predictive models using Linear Discriminant Analysis?,None,Basic,Moderate,Advanced
+27,Have you built any predictive models using CART?,None,Basic,Moderate,Advanced
+28,Have you built any predictive models using SVM?,None,Basic,Moderate,Advanced
+29,Have you built any predictive models using Naïve Bayes?,None,Basic,Moderate,Advanced
+30,Have you built any predictive models using KNN?,None,Basic,Moderate,Advanced
+31,Have you built any predictive models using Apriori?,None,Basic,Moderate,Advanced
+32,Have you built any predictive models using K-means?,None,Basic,Moderate,Advanced
+33,Do you have experience using PCA?,None,Basic,Moderate,Advanced
+34,Do you have experience using Bagging?,None,Basic,Moderate,Advanced
+35,Do you have experience using Boosting?,None,Basic,Moderate,Advanced
+36,Do you have experience using xgboost?,None,Basic,Moderate,Advanced
+37,Do you have experience using lightGBM?,None,Basic,Moderate,Advanced
+38,Do you have experience using developing Time Series Forecasting?,None,Basic,Moderate,Advanced
+39,What is your level of skill in Statistics?,None,Basic,Moderate,Advanced
+40,What is your level of skill in performing and reporting on EDA analysis?,None,Basic,Moderate,Advanced
+42,Does your creative side allow you to create effective visualizations?,None,Basic,Moderate,Advanced
+43,Data Science requires reproducible research.  How effective is your code documentation skills?,None,Basic,Moderate,Advanced
+44,Have you developed predictive solutions with sparse data?,None,Basic,Moderate,Advanced
+45,Have you built and Shiny Apps like this one?,None,Basic,Moderate,Advanced
